@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 
 import static me.lichris93.jrrp.bungee.values.*;
+import static me.lichris93.jrrp.bungee.jrrp.tc;
 
 public class gameCommand extends Command {
 
@@ -18,7 +19,7 @@ public class gameCommand extends Command {
     @Override
     public void execute(CommandSender commandSender, String[] args) {
         if (!commandSender.hasPermission("jrrp.admin")) {
-            commandSender.sendMessage("你没有权限");
+            commandSender.sendMessage(tc("你没有权限"));
             return;
         }
         if (args.length == 1 && args[0].equals("help")) {
@@ -32,7 +33,7 @@ public class gameCommand extends Command {
         } else if (args.length == 2 && args[0].equals("isadmin")) {
             isAdmin(commandSender,args[1]);
         } else {
-            commandSender.sendMessage("§ajrrp v" + version + "正在这个服务器上运行, 使用 /jrrp help 来获取帮助");
+            commandSender.sendMessage(tc("§ajrrp v" + version + "正在这个服务器上运行, 使用 /jrrp help 来获取帮助"));
         }
 
     }
@@ -49,13 +50,13 @@ public class gameCommand extends Command {
         jrrp.saveYAMLProvider(config,"config.yml");
     }
     public void showHelp(@NotNull CommandSender commandSender){
-        commandSender.sendMessage("§a--------------[ jrrp ]--------------");
-        commandSender.sendMessage("§a/jrrp help              显示本帮助信息");
-        commandSender.sendMessage("§a/jrrp reload                 重载配置");
-        commandSender.sendMessage("§a/jrrp addadmin <qqid>          加管理");
-        commandSender.sendMessage("§a/jrrp deladmin <qqid>          减管理");
-        commandSender.sendMessage("§a/jrrp isadmin <qqid>    判断是否是管理");
-        commandSender.sendMessage("§a----------[ By LiChris93 ]-----------");
+        commandSender.sendMessage(tc("§a--------------[ jrrp ]--------------"));
+        commandSender.sendMessage(tc("§a/jrrp help              显示本帮助信息"));
+        commandSender.sendMessage(tc("§a/jrrp reload                 重载配置"));
+        commandSender.sendMessage(tc("§a/jrrp addadmin <qqid>          加管理"));
+        commandSender.sendMessage(tc("§a/jrrp deladmin <qqid>          减管理"));
+        commandSender.sendMessage(tc("§a/jrrp isadmin <qqid>    判断是否是管理"));
+        commandSender.sendMessage(tc("§a----------[ By LiChris93 ]-----------"));
     }
     public void addAdmin(CommandSender commandSender, @NotNull String qqNum){
         if (qqNum.matches("[1-9][0-9]{4,14}")) {
@@ -73,14 +74,14 @@ public class gameCommand extends Command {
             config.set("admin", temp.toString());
             try {
                 saveConfig();
-                commandSender.sendMessage("§a添加完成!" + qqNum);
+                commandSender.sendMessage(tc("§a添加完成!" + qqNum));
             } catch (IOException e) {
                 ins.warn(e.toString());
-                commandSender.sendMessage("§c添加失败，详细信息查看控制台");
+                commandSender.sendMessage(tc("§c添加失败，详细信息查看控制台"));
             }
 
         } else {
-            commandSender.sendMessage("§c不正确的QQ号！");
+            commandSender.sendMessage(tc("§c不正确的QQ号！"));
         }
     }
     public void reloadConfigYml(CommandSender commandSender){
@@ -111,21 +112,21 @@ public class gameCommand extends Command {
                     ins.warn(admin + "不是有效的qq号");
                 }
             }
-            commandSender.sendMessage("§aconfig重载完成");
+            commandSender.sendMessage(tc("§aconfig重载完成"));
 
         } catch (Exception e) {
             ins.info(e.toString());
 
-            commandSender.sendMessage("§cconfig重载失败，详细信息查看控制台");
+            commandSender.sendMessage(tc("§cconfig重载失败，详细信息查看控制台"));
 
         }        }
 
     public void isAdmin(CommandSender commandSender,String qqNum){
         if (hasPermission(Long.parseLong(qqNum))) {
-            commandSender.sendMessage("§a该用户是管理");
+            commandSender.sendMessage(tc("§a该用户是管理"));
         } else {
-            commandSender.sendMessage("§c该用户不是管理");
-
+            commandSender.sendMessage(tc("§c该用户不是管理"));
+            commandSender.sendMessage();
         }
     }
     public void delAdmin(CommandSender commandSender,String qqNum){
@@ -143,16 +144,17 @@ public class gameCommand extends Command {
             config.set("admin", temp.toString());
             try {
                 saveConfig();
-                commandSender.sendMessage("§a移除完成!" + qqNum);
+                commandSender.sendMessage(tc("§a移除完成!" + qqNum));
             } catch (IOException e) {
                 ins.warn(e.toString());
-                commandSender.sendMessage("§c移除失败，详细信息查看控制台");
+                commandSender.sendMessage(tc("§c移除失败，详细信息查看控制台"));
             }
         } else if (!qqNum.matches("[1-9][0-9]{4,14}")) {
-            commandSender.sendMessage("§c不正确的QQ号！");
+            commandSender.sendMessage(tc("§c不正确的QQ号！"));
         } else {
-            commandSender.sendMessage("§c该用户不是管理！");
+            commandSender.sendMessage(tc("§c该用户不是管理！"));
         }
     }
+
 }
 

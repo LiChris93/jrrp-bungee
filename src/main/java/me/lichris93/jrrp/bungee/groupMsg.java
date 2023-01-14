@@ -48,10 +48,8 @@ public class groupMsg implements Listener {
     }
     public void jrrpMes(@NotNull MiraiGroupMessageEvent e){
         if (Time.get(e.getSenderID()) == null) {// 判断hashmap中是否存在发送者，没有则发送消息并存储
-
             Date now = new Date();
             SimpleDateFormat f = new SimpleDateFormat("yyyy 年 MM 月 dd 日");// 格式化当天的日期
-
             String num = Integer.toString(new Random().nextInt(101));
             send(getSucceedMes.replace("%sendername%", e.getSenderName()).replace("%rpnum%", num));// 发送消息
             String[] temp = {f.format(now), num};

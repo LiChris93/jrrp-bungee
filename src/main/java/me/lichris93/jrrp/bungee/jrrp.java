@@ -1,8 +1,11 @@
 package me.lichris93.jrrp.bungee;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -106,5 +109,9 @@ public class jrrp extends Plugin{
         }catch (Exception e){
             warn("jrrp加载失败！原因：config读取失败");
         }
+    }
+    @Contract(value = "_ -> new", pure = true)
+    public static @NotNull TextComponent tc(String str){
+        return new TextComponent(str);
     }
 }
