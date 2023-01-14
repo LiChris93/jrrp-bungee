@@ -10,15 +10,15 @@ public class values {
     public static jrrp ins;
     static HashMap<Long, String[]> Time = new HashMap<>();
     static Configuration config;
-    static long qqbot;
-    static long qqgroup;
+    static long qqBot;
+    static long qqGroup;
     static String version;
     static String admin;
-    static String jrrpmes;
-    static String jrrpclear;
-    static String sendmap;
-    static String getfailmes;
-    static String getsucceedmes;
+    static String jrrpMes;
+    static String jrrpClear;
+    static String sendMap;
+    static String getFailMes;
+    static String getSucceedMes;
     static Set<String> list = new HashSet<>();
 
 }

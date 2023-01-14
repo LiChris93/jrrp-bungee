@@ -86,15 +86,15 @@ public class gameCommand extends Command {
     public void reloadConfigYml(CommandSender commandSender){
         try {
             config = ins.getYAMLProvider("config.yml");
-            qqbot = config.getLong("bot");
-            qqgroup = config.getLong("group");
+            qqBot = config.getLong("bot");
+            qqGroup = config.getLong("group");
             admin = config.getString("admin");
-            jrrpmes = config.getString("lang.jrrpmes");
+            jrrpMes = config.getString("lang.jrrpmes");
             version = config.getString("version");
-            jrrpclear = config.getString("lang.jrrpclear");
-            sendmap = config.getString("lang.sendmap");
-            getfailmes = config.getString("lang.getfailmes");
-            getsucceedmes = config.getString("lang.getsucceedmes");
+            jrrpClear = config.getString("lang.jrrpclear");
+            sendMap = config.getString("lang.sendmap");
+            getFailMes = config.getString("lang.getfailmes");
+            getSucceedMes = config.getString("lang.getsucceedmes");
             if (admin.contains(",")) {
                 String[] temp = admin.split(",");
                 for (String i : temp) {
