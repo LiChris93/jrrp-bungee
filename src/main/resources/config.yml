@@ -1,0 +1,31 @@
+#jrrp 配置文件
+#Made by LiChris93
+
+
+#机器人qq号
+bot: 1526073837
+
+#要发送消息的群号
+group: 709175305
+
+#管理员qq号(若有多个用,隔开)
+admin: 1564722665,3337913379
+
+#文字(可使用变量：%sendername%----发送者名字,%rpnum%----人品数值
+lang:
+  #发送今日人品的消息
+  jrrpmes: ".jrrp"
+  #重置今日人品集合的消息
+  jrrpclear: ".jrrp-clear"
+  #发送今日人品集合内所有内容的消息
+  sendmap: ".jrrp-send-map"
+
+  ###上述为定义用户需往群内发送的消息(不可使用变量)，下面则是机器人发送的消息(可以使用变量)###
+
+  #用户当天第一次请求今日人品时发送的消息
+  getsucceedmes: "%sendername%的今日人品是%rpnum%,请在明天再次查看"
+
+  #若用户在当日再次请求今日人品则发送
+  getfailmes: "%sendername%的今日人品是%rpnum%"
+#不要修改此项
+version: "1.0"

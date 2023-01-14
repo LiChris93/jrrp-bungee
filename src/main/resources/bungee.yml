@@ -1,0 +1,4 @@
+name: jrrp
+version: "1.0"
+main: me.lichris93.jrrp.bungee.jrrp
+authors: [ LiChris93 ]
