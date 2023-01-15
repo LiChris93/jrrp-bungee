@@ -45,7 +45,7 @@ public class groupMsg implements Listener {
             SimpleDateFormat f = new SimpleDateFormat("yyyy 年 MM 月 dd 日");// 格式化当天的日期
             String num = Integer.toString(new Random().nextInt(101));
             send(getSucceedMes.replace("%sendername%", e.getSenderName()).replace("%rpnum%", num),e);// 发送消息
-            String[] temp = {f.format(now), num};
+            String[] temp = {f.format(now), num,e.getSenderName()};
             Time.put(e.getSenderID(), temp);// 放置到hashmap中
         } else {// 如果hashmap中存在
             Date now = new Date();
@@ -53,7 +53,7 @@ public class groupMsg implements Listener {
             if (!f.format(now).equals(Time.get(e.getSenderID())[0])) {// 如果不是当天再次发送
                 String num = Integer.toString(new Random().nextInt(101));
                 send(getSucceedMes.replace("%sendername%", e.getSenderName()).replace("%rpnum%", num),e);// 发送消息
-                String[] temp = {f.format(now), num};
+                String[] temp = {f.format(now), num,e.getSenderName()};
                 Time.put(e.getSenderID(), temp);// 重置时间
             } else {// 如果是当天再次发送
                 send(getFailMes.replace("%sendername%", e.getSenderName())
