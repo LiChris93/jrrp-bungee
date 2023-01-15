@@ -19,6 +19,7 @@ public class values {
     static String sendMap;
     static String getFailMes;
     static String getSucceedMes;
+    static String sendRank;
     static Set<String> list = new HashSet<>();
 
 }

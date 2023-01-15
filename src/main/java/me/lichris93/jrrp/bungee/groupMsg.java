@@ -8,9 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import static me.lichris93.jrrp.bungee.values.*;
 import static me.lichris93.jrrp.bungee.jrrp.*;
@@ -28,12 +26,12 @@ public class groupMsg implements Listener {
         }
         if (e.getMessage().equals(jrrpMes)) {//处理.jrrp
             jrrpMes(e);
-        }
-        if (e.getMessage().equals(jrrpClear)) {//处理.jrrp-clear
+        }else if (e.getMessage().equals(jrrpClear)) {//处理.jrrp-clear
            jrrpClear(e);
-        }
-        if (e.getMessage().equals(sendMap)) {//处理.jrrp-send-map
+        }else if (e.getMessage().equals(sendMap)) {//处理.jrrp-send-map
             sendMap(e);
+        }else if (e.getMessage().equals(sendRank)){//处理.jrrp-rank
+            sendRank(e);
         }
     }
     public void send(String text,MiraiGroupMessageEvent e) {
@@ -82,6 +80,23 @@ public class groupMsg implements Listener {
         } else {
             send("你没有权限",e);
         }
+    }
+    public void sendRank(@NotNull MiraiGroupMessageEvent e){
+        Date now = new Date();
+        SimpleDateFormat f = new SimpleDateFormat("yyyy 年 MM 月 dd 日");
+        String date = f.format(now);
+        HashMap<String,Long> Rank = new HashMap<>();//Rank:String(Key)->luckNum Long(Value)->qqNum
+        for(Map.Entry<Long, String[]> entry : Time.entrySet()){
+            if(entry.getValue()[0].equals(date)){
+                Rank.put(entry.getValue()[1],entry.getKey());//别搞混！这里只是为了排序！
+            }
+        }
+        TreeMap<String,Long> RankSorted = new TreeMap<>(Rank);//用TreeMap排序
+        StringBuilder result = new StringBuilder(date+"的今日人品榜单");
+        for(Map.Entry<String,Long> entry : RankSorted.entrySet()){
+            result.append("\n").append(Time.get(entry.getValue())[2]).append(":").append(entry.getKey());//输出
+        }
+        e.getGroup().sendMessage(result.toString());
     }
 }
 

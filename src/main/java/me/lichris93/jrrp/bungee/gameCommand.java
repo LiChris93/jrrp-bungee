@@ -90,6 +90,7 @@ public class gameCommand extends Command {
             sendMap = config.getString("lang.sendmap");
             getFailMes = config.getString("lang.getfailmes");
             getSucceedMes = config.getString("lang.getsucceedmes");
+            sendRank = config.getString("lang.sendrank");
             if (admin.contains(",")) {
                 String[] temp = admin.split(",");
                 for (String i : temp) {

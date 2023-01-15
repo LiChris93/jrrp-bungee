@@ -46,6 +46,7 @@
 **优先支持 Spigot**
 - [x] 支持多群
 - [ ] 支持多Bot
+- [x] 支持榜单(q群内)
 - [x] 支持 BungeeCord
 - [ ] 优化config.yml
 
