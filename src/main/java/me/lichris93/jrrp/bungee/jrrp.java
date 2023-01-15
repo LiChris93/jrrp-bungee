@@ -91,7 +91,7 @@ public class jrrp extends Plugin{
     public void loadConfig(){
         try {
             qqBot = config.getLong("bot");
-            qqGroup = config.getLong("group");
+            qqGroup.addAll(config.getLongList("group"));
             admin = config.getString("admin");
             jrrpMes = config.getString("lang.jrrpmes");
             version = config.getString("version");
@@ -113,5 +113,13 @@ public class jrrp extends Plugin{
     @Contract(value = "_ -> new", pure = true)
     public static @NotNull TextComponent tc(String str){
         return new TextComponent(str);
+    }
+    public static boolean hasAdminPermission(long qqNum) {
+        for (String s : list) {
+            if (Long.toString(qqNum).equals(s)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

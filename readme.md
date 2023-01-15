@@ -4,7 +4,7 @@
 
 
 # `jrrp`
-<p>一个基于MiraiMC的MineCraft Bungeecord插件</p>
+<p>一个基于MiraiMC的MineCraft BungeeCord插件</p>
 <a href="https://github.com/LiChris93/jrrp-bukkit/">Bukkit看这里</a>
 <p>MiraiMC Github 仓库地址 --> <a href="https://github.com/DreamVoid/MiraiMC">DreamVoid/MiraiMC</a></p>
 <p>这个项目的名字来源于 "今日人品" 的拼音缩写</p>
@@ -30,7 +30,7 @@
 <div align="left">
 
 ## 服务端支持
-- [x] 装有 MiraiMC 的 Bungeecord 服务器 理论全版本
+- [x] 装有 MiraiMC 的 BungeeCord 服务器 理论全版本
 
 
 ## 命令列表
@@ -44,8 +44,9 @@
 
 ## TODO
 **优先支持 Spigot**
-- [ ] 支持多机器人多群
-- [x] 支持 Bungeecord
+- [x] 支持多群
+- [ ] 支持多Bot
+- [x] 支持 BungeeCord
 - [ ] 优化config.yml
 
 ## 声明

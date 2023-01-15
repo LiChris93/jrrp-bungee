@@ -11,7 +11,7 @@ public class values {
     static HashMap<Long, String[]> Time = new HashMap<>();
     static Configuration config;
     static long qqBot;
-    static long qqGroup;
+    static Set<Long> qqGroup = new HashSet<>();
     static String version;
     static String admin;
     static String jrrpMes;

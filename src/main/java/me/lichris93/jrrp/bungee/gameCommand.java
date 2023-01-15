@@ -6,8 +6,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
+import static me.lichris93.jrrp.bungee.jrrp.*;
 import static me.lichris93.jrrp.bungee.values.*;
-import static me.lichris93.jrrp.bungee.jrrp.tc;
 
 public class gameCommand extends Command {
 
@@ -17,7 +17,7 @@ public class gameCommand extends Command {
     }
 
     @Override
-    public void execute(CommandSender commandSender, String[] args) {
+    public void execute(@NotNull CommandSender commandSender, String[] args) {
         if (!commandSender.hasPermission("jrrp.admin")) {
             commandSender.sendMessage(tc("你没有权限"));
             return;
@@ -37,15 +37,7 @@ public class gameCommand extends Command {
         }
 
     }
-    public boolean hasPermission(long qqNum) {
-        for (String s : list) {
-            if (Long.toString(qqNum).equals(s)) {
-                return true;
-            }
-        }
-        return false;
 
-    }
     public void saveConfig() throws IOException {
         jrrp.saveYAMLProvider(config,"config.yml");
     }
@@ -86,9 +78,11 @@ public class gameCommand extends Command {
     }
     public void reloadConfigYml(CommandSender commandSender){
         try {
+            list.clear();
+            qqGroup.clear();
             config = ins.getYAMLProvider("config.yml");
             qqBot = config.getLong("bot");
-            qqGroup = config.getLong("group");
+            qqGroup.addAll(config.getLongList("group"));
             admin = config.getString("admin");
             jrrpMes = config.getString("lang.jrrpmes");
             version = config.getString("version");
@@ -119,18 +113,18 @@ public class gameCommand extends Command {
 
             commandSender.sendMessage(tc("§cconfig重载失败，详细信息查看控制台"));
 
-        }        }
+        }
+    }
 
     public void isAdmin(CommandSender commandSender,String qqNum){
-        if (hasPermission(Long.parseLong(qqNum))) {
+        if (hasAdminPermission((Long.parseLong(qqNum)))) {
             commandSender.sendMessage(tc("§a该用户是管理"));
         } else {
             commandSender.sendMessage(tc("§c该用户不是管理"));
-            commandSender.sendMessage();
         }
     }
     public void delAdmin(CommandSender commandSender,String qqNum){
-        if (hasPermission(Long.parseLong(qqNum))) {
+        if (hasAdminPermission((Long.parseLong(qqNum)))) {
             list.remove(qqNum);
             StringBuilder temp = new StringBuilder();
             if (list.size() > 1) {

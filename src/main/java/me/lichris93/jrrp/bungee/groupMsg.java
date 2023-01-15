@@ -1,6 +1,5 @@
 package me.lichris93.jrrp.bungee;
 
-import me.dreamvoid.miraimc.api.MiraiBot;
 import me.dreamvoid.miraimc.bungee.event.message.passive.MiraiGroupMessageEvent;
 import me.lichris93.jrrp.bungee.Utils.ServerUtils;
 import net.md_5.bungee.api.plugin.Listener;
@@ -14,12 +13,19 @@ import java.util.Map;
 import java.util.Random;
 
 import static me.lichris93.jrrp.bungee.values.*;
+import static me.lichris93.jrrp.bungee.jrrp.*;
 public class groupMsg implements Listener {
     @EventHandler
     public void onSend(@NotNull MiraiGroupMessageEvent e) {
-        if (e.getGroupID() != qqGroup) {
+        boolean GroupIsInConfig = false;
+        for (Long l : qqGroup){
+            if(l == e.getGroupID()){
+                GroupIsInConfig = true;
+            }
+        }
+        if(!GroupIsInConfig){//如果不是来自配置中的群就跳出
             return;
-        }//如果不是来自配置中的群就跳出
+        }
         if (e.getMessage().equals(jrrpMes)) {//处理.jrrp
             jrrpMes(e);
         }
@@ -30,20 +36,9 @@ public class groupMsg implements Listener {
             sendMap(e);
         }
     }
-
-    public boolean hasPermission(long qqNum) {
-        for (String s : list) {
-            if (Long.toString(qqNum).equals(s)) {
-                return true;
-            }
-        }
-        return false;
-
-    }
-
-    public void send(String text) {
+    public void send(String text,MiraiGroupMessageEvent e) {
         ServerUtils.runAsync(() ->
-            MiraiBot.getBot(qqBot).getGroup(qqGroup).sendMessage(text)
+            e.getGroup().sendMessage(text)
         );
     }
     public void jrrpMes(@NotNull MiraiGroupMessageEvent e){
@@ -51,7 +46,7 @@ public class groupMsg implements Listener {
             Date now = new Date();
             SimpleDateFormat f = new SimpleDateFormat("yyyy 年 MM 月 dd 日");// 格式化当天的日期
             String num = Integer.toString(new Random().nextInt(101));
-            send(getSucceedMes.replace("%sendername%", e.getSenderName()).replace("%rpnum%", num));// 发送消息
+            send(getSucceedMes.replace("%sendername%", e.getSenderName()).replace("%rpnum%", num),e);// 发送消息
             String[] temp = {f.format(now), num};
             Time.put(e.getSenderID(), temp);// 放置到hashmap中
         } else {// 如果hashmap中存在
@@ -59,35 +54,34 @@ public class groupMsg implements Listener {
             SimpleDateFormat f = new SimpleDateFormat("yyyy 年 MM 月 dd 日");
             if (!f.format(now).equals(Time.get(e.getSenderID())[0])) {// 如果不是当天再次发送
                 String num = Integer.toString(new Random().nextInt(101));
-                send(getSucceedMes.replace("%sendername%", e.getSenderName()).replace("%rpnum%", num));// 发送消息
+                send(getSucceedMes.replace("%sendername%", e.getSenderName()).replace("%rpnum%", num),e);// 发送消息
                 String[] temp = {f.format(now), num};
                 Time.put(e.getSenderID(), temp);// 重置时间
             } else {// 如果是当天再次发送
                 send(getFailMes.replace("%sendername%", e.getSenderName())
-                        .replace("%rpnum%", Time.get(e.getSenderID())[1]));// 发送还在冷却中消息
+                        .replace("%rpnum%", Time.get(e.getSenderID())[1]),e);// 发送还在冷却中消息
             }
         }
     }
     public void jrrpClear(@NotNull MiraiGroupMessageEvent e){
-        if (hasPermission(e.getSenderID())) {
+        if (hasAdminPermission(e.getSenderID())) {
             Time.clear();
-            send("HashMap Cleared");
+            send("HashMap Cleared",e);
         } else {
-            send("你没有权限");
+            send("你没有权限",e);
         }
     }
     public void sendMap(@NotNull MiraiGroupMessageEvent e){
-        if (hasPermission(e.getSenderID())) {
+        if (hasAdminPermission(e.getSenderID())) {
             StringBuilder result = new StringBuilder("{");
             for (Map.Entry<Long, String[]> entry : Time.entrySet()) {
                 result.append(entry.getKey()).append("=[").append(entry.getValue()[0]).append(",").append(entry.getValue()[1]).append("]");
             }
             result.append("}");
-            send(result.toString());
+            send(result.toString(),e);
         } else {
-            send("你没有权限");
+            send("你没有权限",e);
         }
     }
-    
 }
 
