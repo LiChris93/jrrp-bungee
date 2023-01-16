@@ -73,7 +73,12 @@ public class groupMsg implements Listener {
         if (hasAdminPermission(e.getSenderID())) {
             StringBuilder result = new StringBuilder("{");
             for (Map.Entry<Long, String[]> entry : Time.entrySet()) {
-                result.append(entry.getKey()).append("=[").append(entry.getValue()[0]).append(",").append(entry.getValue()[1]).append("]");
+                result.append(entry.getKey()).append("(").append(entry.getValue()[2]).append(")").append("=[").append(entry.getValue()[0]).append(",").append(entry.getValue()[1]).append("]").append(",");
+            }//eg:{1564722665(残影)=[114年5月14日,14]}
+            if(result.length()!=1){//排除无人情况
+                result.deleteCharAt(result.length()-1);//去掉结尾逗号
+            }else{
+                result.append(" No data found,:( ");
             }
             result.append("}");
             send(result.toString(),e);
